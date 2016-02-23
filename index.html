@@ -1,0 +1,196 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>city-select demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <link href="http://g.alicdn.com/tbc/m-base/1.0.1/index-min.css" rel="styleSheet" type="text/css" />
+    <script src="http://g.alicdn.com/??tbc/m-base/1.0.1/index-min.js"></script>
+    <style type="text/css">
+    .city-select-container {
+        position: relative;
+        height: 5rem;
+        overflow: hidden;
+        border-top: 1px solid #ccc;
+        background: #fff;
+    }
+    
+    .city-select-container .select-shadow {
+        box-shadow: 0 0 60px 36px #fff inset;
+        height: 5rem;
+        left: 0;
+        right: 0;
+        position: absolute;
+        top: 0;
+        margin-top: -2rem;
+    }
+    
+    .city-select-container .select-masker {
+        position: absolute;
+        height: 2rem;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, .5);
+        z-index: 1;
+    }
+    
+    .city-select-container .select-masker-top {
+        top: 0;
+        margin-top: -2rem;
+        border-bottom: 1px solid #000;
+    }
+    
+    .city-select-container .select-masker-bottom {
+        bottom: 0;
+        margin-bottom: -2rem;
+        border-top: 1px solid #000;
+    }
+    
+    .city-select-container .scroller-wrapper {
+        height: 1rem;
+        margin-top: -.5rem;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 50%;
+    }
+    
+    .city-select-container .select-scroller {
+        background: none;
+        width: 33%;
+        height: 1rem;
+        float: left;
+    }
+    
+    .city-select-container .select-scroller li {
+        display: block;
+        text-decoration: none;
+        line-height: 1rem;
+        text-align: center;
+        font-size: .6rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    </style>
+    <style>
+    .pop-container {
+        position: absolute;
+        width: 100%;
+        height: 6.4rem;
+        bottom: 0;
+        -webkit-transition: all .5s ease;
+        -webkit-transform: translateY(6.4rem);
+    }
+    
+    .fade-in {
+        -webkit-transform: translateY(0);
+    }
+    
+    .btn-save {
+        line-height: 1.4rem;
+        height: 1.4rem;
+        font-size: .5rem;
+        background: #f60;
+        color: #fff;
+        text-align: center;
+        display: block;
+    }
+    
+    .txt {
+        width: 8rem;
+        border: 1px solid #ccc;
+        display: block;
+        margin: .2rem auto;
+        line-height: .8rem;
+        font-size: .6rem;
+        padding: .1rem;
+    }
+    </style>
+</head>
+
+<body>
+    <input type="text" class="txt" placeholder="省、市、区">
+    <div class="pop-container">
+        <div id="demo" class="city-select-container">
+            <div class="scroller-wrapper">
+                <div class="select-scroller">
+                    <div class="xs-container">
+                        <div class="xs-content">
+                        </div>
+                    </div>
+                    <div class="select-shadow"></div>
+                    <div class="select-masker select-masker-top"></div>
+                    <div class="select-masker select-masker-bottom"></div>
+                </div>
+                <div class="select-scroller">
+                    <div class="xs-container">
+                        <div class="xs-content">
+                        </div>
+                    </div>
+                    <div class="select-shadow"></div>
+                    <div class="select-masker select-masker-top"></div>
+                    <div class="select-masker select-masker-bottom"></div>
+                </div>
+                <div class="select-scroller">
+                    <div class="xs-container">
+                        <div class="xs-content">
+                        </div>
+                    </div>
+                    <div class="select-shadow"></div>
+                    <div class="select-masker select-masker-top"></div>
+                    <div class="select-masker select-masker-bottom"></div>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="btn-save">保存</a>
+    </div>
+    <script src="./node_modules/xscroll/lib/zepto.js"></script>
+    <script src="./node_modules/xscroll/lib/sea.js"></script>
+    <script>
+    seajs.config({
+        base: "./node_modules/xscroll/build/cmd/",
+        map: [
+            [".js", ".js?" + new Date().getTime()]
+        ]
+    });
+
+    seajs.use(['./index','./citydata'], function(CitySelect,data) {
+        var cityselect = new CitySelect({
+            renderTo: "#demo",
+            data:data
+            // defaultFocus:330000
+        });
+        cityselect.render();
+        var $txt = $(".txt");
+        var $popContainer = $(".pop-container");
+
+        $txt.on("focus", function() {
+            $popContainer.addClass("fade-in");
+        })
+        $txt.on("blur", function() {
+            $popContainer.removeClass("fade-in");
+        })
+
+        $(".btn-save").click(function(e) {
+            var selectedVal = cityselect.getVal();
+            var val = [];
+            selectedVal.forEach(function(v) {
+                v && val.push(v[0]);
+            })
+            $txt.val(val.join("-"))
+        })
+
+        setTimeout(function() {
+            cityselect.focus(0, 330000)
+        }, 500)
+
+
+
+
+    });
+    </script>
+</body>
+
+</html>

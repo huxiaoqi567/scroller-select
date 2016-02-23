@@ -1,0 +1,27 @@
+{
+  "name": "scroller-select",
+  "version": "1.0.0",
+  "description": "滚动选择",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "scroll",
+    "select"
+  ],
+  "author": "xiaoqi.huxq",
+  "license": "MIT",
+  "dependencies": {
+    "xscroll": "~3.1.2"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:huxiaoqi567/scroller-select.git"
+  },
+  "bugs": {
+    "url": "https://github.com/huxiaoqi567/scroller-select/issues"
+  },
+  "homepage": "https://github.com/huxiaoqi567/scroller-select"
+}
